@@ -26,12 +26,12 @@ npm start
 
 #### Backend
 
-```bash
 cd flask-server
 pip install virtualenv
-Scripts\activate
-pip install -r /external/requirements.txt
+pip install firebase-admin Flask Flask-CORS
+pip install slither-analyzer
 python main.py
+
 ```
 
 ### Usage
@@ -51,7 +51,11 @@ Note that due to technical limitation, the speed to retrieve the data is quite s
 Slither analyse cmd in CLI
 
 ```
+
 solc-select install 0.8.4
 solc-select use 0.8.4
 slither contract.sol --checklist
+
+```
+
 ```

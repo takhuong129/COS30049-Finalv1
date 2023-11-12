@@ -7,21 +7,24 @@ import {
   Container,
   Grid,
   Box,
+  CircularProgress,
 } from '@mui/material';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
 import { AnalysisDs } from './AnalysisDs';
-import { Construction } from '@mui/icons-material';
 
 export const Audit = ({userData}) => {
   const userId = userData.user_id
 
   const [selectedFile, setSelectedFile] = useState(null);
   const [showPopup, setShowPopup] = useState(false);
+  const [loading,setLoading] = useState (false);
 
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     setSelectedFile(file);
+    setLoading(true)
     analyzeContract(file)
+
     
   };
 
@@ -38,6 +41,7 @@ export const Audit = ({userData}) => {
 
       // Handle the response from the backend
       setShowPopup(allow);
+      setLoading(false);
       // Perform any necessary actions based on the response
     } catch (error) {
       console.error(error);
@@ -123,6 +127,40 @@ export const Audit = ({userData}) => {
             }}
           >
             <AnalysisDs/>
+          </div>
+        </div>
+      )}
+
+      {loading && (
+        <div
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100%',
+            height: '100%',
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            zIndex: 999,
+          }}
+        >
+          <div
+            style={{
+              backgroundColor: '#F2F0E3',
+              padding: '2rem',
+              borderRadius: '40px',
+              boxShadow: '0px 0px 10px rgba(0, 0, 0, 0.5)',
+              border:'2px solid #023020',
+              color:'green',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}
+          >
+           <CircularProgress color="primary" size={60} style={{ marginBottom: '1rem' }} />
+           <h1>Loading...</h1>
           </div>
         </div>
       )}
